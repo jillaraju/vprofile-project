@@ -123,7 +123,7 @@ pipeline {
                 extraVars   : [
                    	USER: "admin",
                     PASS: "${NEXUSPASS}",
-			        nexusip: "172.31.30.17",
+			        nexusip: "${NEXUSIP}",
 			        reponame: "vprofile-release",
 			        groupid: "QA",
 			        time: "${env.BUILD_TIMESTAMP}",
