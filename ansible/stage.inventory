@@ -1,0 +1,2 @@
+[appsrvgrp]
+172.31.22.244 ansible_user=ubuntu
