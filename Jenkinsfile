@@ -120,6 +120,7 @@ pipeline {
                 colorized   : true,
 			    credentialsId: 'appservssh',
 			    disableHostKeyChecking: true,
+                extras: '--private-key=/var/lib/jenkins/.ssh/id_rsa' ,
                 extraVars   : [
                    	USER: "admin",
                     PASS: "${NEXUSPASS}",
