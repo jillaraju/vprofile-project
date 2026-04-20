@@ -4,8 +4,14 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
 
-  <!-- Nexus Credentials -->
   <servers>
+    <!-- IMPORTANT: this fixes 401 -->
+    <server>
+      <id>nexus</id>
+      <username>admin</username>
+      <password>raju</password>
+    </server>
+
     <server>
       <id>vprofile-snapshot</id>
       <username>admin</username>
@@ -31,7 +37,6 @@ xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.o
     </server>
   </servers>
 
-  <!-- Use Nexus as mirror -->
   <mirrors>
     <mirror>
       <id>nexus</id>
