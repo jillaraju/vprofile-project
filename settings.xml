@@ -5,7 +5,6 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd">
 
   <!-- Nexus Credentials -->
-
   <servers>
     <server>
       <id>vprofile-snapshot</id>
@@ -13,30 +12,26 @@ xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.o
       <password>raju</password>
     </server>
 
-```
-<server>
-  <id>vprofile-release</id>
-  <username>admin</username>
-  <password>raju</password>
-</server>
+    <server>
+      <id>vprofile-release</id>
+      <username>admin</username>
+      <password>raju</password>
+    </server>
 
-<server>
-  <id>vpro-maven-central</id>
-  <username>admin</username>
-  <password>raju</password>
-</server>
+    <server>
+      <id>vpro-maven-central</id>
+      <username>admin</username>
+      <password>raju</password>
+    </server>
 
-<server>
-  <id>vpro-maven-group</id>
-  <username>admin</username>
-  <password>raju</password>
-</server>
-```
-
+    <server>
+      <id>vpro-maven-group</id>
+      <username>admin</username>
+      <password>raju</password>
+    </server>
   </servers>
 
   <!-- Use Nexus as mirror -->
-
   <mirrors>
     <mirror>
       <id>nexus</id>
