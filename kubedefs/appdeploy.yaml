@@ -2,29 +2,80 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vproapp
-  labels: 
+  labels:
     app: vproapp
+
 spec:
   replicas: 1
+
   selector:
     matchLabels:
       app: vproapp
+
   template:
     metadata:
       labels:
         app: vproapp
+
     spec:
+
+      initContainers:
+
+      - name: init-mydb
+        image: busybox
+        command:
+        - sh
+        - -c
+        args:
+        - |
+          until nslookup vprodb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local;
+          do
+            echo "waiting for mysql";
+            sleep 2;
+          done
+
+      - name: init-memcache
+        image: busybox
+        command:
+        - sh
+        - -c
+        args:
+        - |
+          until nslookup vprocache01.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local;
+          do
+            echo "waiting for memcache";
+            sleep 2;
+          done
+
+      - name: init-rabbitmq
+        image: busybox
+        command:
+        - sh
+        - -c
+        args:
+        - |
+          until nslookup vpromq01.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local;
+          do
+            echo "waiting for rabbitmq";
+            sleep 2;
+          done
+
       containers:
+
       - name: vproapp
         image: vprocontainers/vprofileapp
         imagePullPolicy: Always
+
         ports:
         - name: vproapp-port
           containerPort: 8080
-      initContainers:
-      - name: init-mydb
-        image: busybox
-        args: ['-c', 'until nslookup vprodb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done;']
-      - name: init-memcache
-        image: busybox
-       args: ['-c', 'until nslookup vprocache01.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done;']
+
+        env:
+        - name: DB_HOST
+          value: vprodb
+
+        - name: CACHE_HOST
+          value: vprocache01
+
+        - name: RABBITMQ_HOST
+          value: vpromq01
